@@ -18,7 +18,8 @@ NUM_CLASSES           : 38148
 
 #### MODEL PARAMETERS ####
 
-# For evaluation, load trained model; unused?
+# Load a pretrained model?
+# Set to "None" if no. Can be a path.
 PRETRAINED_MODEL      : None
 
 # size of input
@@ -40,6 +41,11 @@ BATCH_SIZE            : 256
 
 # number of training epochs
 NUM_EPOCHS            : 80
+
+# Label smoothing
+DO_LABEL_SMOOTH   : True
+LABEL_SMOOTH_MODE : "flat"
+LABEL_SMOOTH_PCT  : 0.1
 
 # initial learning rate for the model
 INITIAL_LEARNING_RATE : 0.05

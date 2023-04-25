@@ -126,7 +126,7 @@ def main():
         # create neural network
         model = nets.make_neural_network(
             base_arch_name = "xception",
-            weights = config["PRETRAINED_MODEL"],
+            weights = None if config["PRETRAINED_MODEL"] == 'None' else config["PRETRAINED_MODEL"],
             image_size = config["IMAGE_SIZE"],
             dropout_pct = config["DROPOUT_PCT"],
             n_classes = config["NUM_CLASSES"],

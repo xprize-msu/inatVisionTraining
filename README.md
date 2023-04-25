@@ -47,12 +47,9 @@ Parameters specifying the neural network.
 
 Name             | Function
 -----------------|----------
-IMAGE_SIZE       | 2D list of integers specifying the size of each input image
+IMAGE_SIZE       | 2D list of integers specifying the size of each input image. 
 DROPOUT_PCT      | Dropout percentage for the layer between "pool" and "logits"
-PRETRAINED_MODEL | Path to existing model; cannot be named "imagenet"
-DO_LABEL_SMOOTH   | Enable label smoothing in the categorical cross entropy loss function
-LABEL_SMOOTH_MODE | Distribution The only currently supported mode is "flat"
-LABEL_SMOOTH_PCT  | Percentage by which to smooth the labels
+PRETRAINED_MODEL | "None" (for random initialization), "imagenet" (if pre-training is hosted there), or path to a weights file
 
 ### Training Parameters
 
@@ -64,6 +61,9 @@ TRAIN_MIXED_PRECISION | Set to "True" only if your GPU supports CUDA >= 7.0
 MULTIGPU              | Boolean; use more than one GPU
 BATCH_SIZE            | Size of batch per GPU
 NUM_EPOCHS            | Number of training epochs
+DO_LABEL_SMOOTH   | Enable label smoothing in the categorical cross entropy loss function
+LABEL_SMOOTH_MODE | Distribution; the only currently supported mode is "flat"
+LABEL_SMOOTH_PCT  | Percentage by which to smooth the labels
 INITIAL_LEARNING_RATE | Initial learning rate
 LR_DECAY_FACTOR       | Learning rate decay factor
 EPOCHS_PER_LR_DECAY   | Number of epochs over which to decay by 
@@ -76,6 +76,14 @@ RMSPROP_EPSILON       | Parameter "epsilon" for the "rmsprop" optimizer
 ### Training
 
 After constructing a configuration file, the model can be trained by running `python train.py --config_file <config.yml>`.
+
+#### Model Augmentation
+
+Some basic augmentation is performed on the training data. This augmentation includes:
+
+* Random cropping (image is resized to IMAGE_SIZE)
+* Flip 50% of the time
+* Recolor 30% of the time (random hue, saturation, brightness, contrast)
 
 ### Model Evaluation
 
