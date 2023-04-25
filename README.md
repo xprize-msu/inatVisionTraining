@@ -8,12 +8,13 @@ The following python modules are required:
 * pandas
 * yaml
 * tensorflow
+* nets (pip only)
 * tqdm
 * json
 
 ## Configuration
 
-Specify various parameters for training, validating, and testing the model in a YAML file. An example is provided in `config.yml.example`, though the parameters within are not up to date.
+Specify various parameters for training, validating, and testing the model in a YAML file. An example is provided in `config.yml.example`. This example has been modified from the original to better reflect the state of the code.
 
 The following tables describe parameters that **must be set**. There are no defaults within the code.
 
@@ -40,6 +41,19 @@ TEST_DATA         | JSON file with test data
 NUM_CLASSES       | Number of output classes
 LABEL_COLUMN_NAME | Name of the column containing class labels
 
+### Model Parameters
+
+Parameters specifying the neural network.
+
+Name             | Function
+-----------------|----------
+IMAGE_SIZE       | 2D list of integers specifying the size of each input image
+DROPOUT_PCT      | Dropout percentage for the layer between "pool" and "logits"
+PRETRAINED_MODEL | Path to existing model; cannot be named "imagenet"
+DO_LABEL_SMOOTH   | Enable label smoothing in the categorical cross entropy loss function
+LABEL_SMOOTH_MODE | Distribution The only currently supported mode is "flat"
+LABEL_SMOOTH_PCT  | Percentage by which to smooth the labels
+
 ### Training Parameters
 
 Parameters for training the model. The training framework is hardcoded to use the "rmsprop" optimizer.
@@ -56,20 +70,6 @@ EPOCHS_PER_LR_DECAY   | Number of epochs over which to decay by
 RMSPROP_RHO           | Parameter "rho" for the "rmsprop" optimizer
 RMSPROP_MOMENTUM      | Parameter "momentum" for the "rmsprop" optimizer
 RMSPROP_EPSILON       | Parameter "epsilon" for the "rmsprop" optimizer
-
-### Model Parameters
-
-Parameters specifying the neural network.
-
-Name             | Function
------------------|----------
-MODEL_NAME       | String to name the model
-IMAGE_SIZE       | 2D list of integers specifying the size of each input image
-DROPOUT_PCT      | Dropout percentage for the layer between "pool" and "logits"
-PRETRAINED_MODEL | Path to existing model; cannot be named "imagenet"
-DO_LABEL_SMOOTH   | Enable label smoothing in the categorical cross entropy loss function
-LABEL_SMOOTH_MODE | Distribution The only currently supported mode is "flat"
-LABEL_SMOOTH_PCT  | Percentage by which to smooth the labels
 
 ## Training and Evaluating the Model
 
